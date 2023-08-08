@@ -1,18 +1,20 @@
 import logging
-import os
 import time
 
 import requests
 from src import service
 from src.models import FirstPage
+from src.settings import Settings
+
+settings = Settings()
 
 
 def poll_github_events():
     url: str = "https://api.github.com/events"
-    headers: dict = {"Accept": "application/vnd.github+json"}
+    headers: dict[str] = {"Accept": "application/vnd.github+json"}
     events: list = []
 
-    if github_token := os.getenv("GITHUB_TOKEN"):
+    if github_token := settings.github_token:
         headers["Authorization"] = f"Bearer {github_token}"
     else:
         logging.info("Polling Github Events API without token, requests limited to 60 per hour")
@@ -22,14 +24,13 @@ def poll_github_events():
         if first_page.status_code == 200:
             events.extend(service.parse_events_redis(first_page.events))
             events = get_paginated_data(response=first_page, headers=headers, events=events)
-            logging.info(f"Returning {len(events)}")
             yield events
 
             # Preparing for next poll
             events.clear()
             headers["If-None-Match"] = first_page.etag
             time.sleep(
-                max(first_page.poll_interval * first_page.total_pages, 10)  # Poll dependent on the poll interval limit
+                max(first_page.poll_interval * first_page.total_pages, settings.max_poll_interval)  # Poll dependent on the poll interval limit
             )
         else:
             logging.info("Trying again in 60 seconds")

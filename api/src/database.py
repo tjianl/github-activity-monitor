@@ -4,36 +4,14 @@ from litestar.contrib.sqlalchemy.plugins import SQLAlchemyAsyncConfig
 from litestar.exceptions import ClientException, NotFoundException
 from litestar.status_codes import HTTP_409_CONFLICT
 from sqlalchemy import func, select
-from sqlalchemy.engine import URL
 from sqlalchemy.exc import IntegrityError, NoResultFound
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.models import Event
 from datetime import timedelta
+from src.settings import PostgresSettings
 
 
-def create_connection_url(username: str, password: str, server: str, port: int, database: str) -> str:
-    return URL.create(
-        "postgresql+asyncpg",
-        username=username,
-        password=password,
-        host=server,
-        port=port,
-        database=database,
-        # query={
-        #     "sslmode": "require"
-        # },
-    )
-
-
-db_config = SQLAlchemyAsyncConfig(
-    connection_string=create_connection_url(
-        username="postgres",
-        password="tjian123",
-        server="localhost",
-        port=5432,
-        database="postgres",
-    )
-)
+db_config = SQLAlchemyAsyncConfig(connection_string=PostgresSettings().postgres_dsn)
 
 
 async def provide_transaction(db_session: AsyncSession) -> AsyncGenerator[AsyncSession, None]:
@@ -75,7 +53,9 @@ async def get_average_time_between_prs(session: AsyncSession, repo_id: int) -> t
 async def get_num_of_events_per_type(session: AsyncSession, offset: int) -> timedelta:
     query = (
         select(Event.event_type, func.count().label("count"))
-        .where(Event.created_at.between(func.current_timestamp() - timedelta(minutes=offset), func.current_timestamp()))
+        .where(
+            Event.created_at.between(func.current_timestamp() - timedelta(minutes=offset), func.current_timestamp())
+        )
         .group_by(Event.event_type)
     )
     result = await session.execute(query)

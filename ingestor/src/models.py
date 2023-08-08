@@ -6,6 +6,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import BigInteger
 
 
+# Pydantic dataclasses
 @dataclass
 class FirstPage:
     status_code: int
@@ -26,6 +27,7 @@ class EventModel:
     action: str
 
 
+# SQLAlchemy ORM models
 class Base(DeclarativeBase):
     pass
 

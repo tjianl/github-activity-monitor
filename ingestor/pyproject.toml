@@ -17,6 +17,7 @@ classifiers = [
 dependencies = [
     "requests==2.31.0",
     "pydantic==1.10.12",
+    "pydantic-settings==2.02",
     "redis==4.6.0",
     "sqlalchemy==2.0.19",
     "psycopg2-binary==2.9.6",
