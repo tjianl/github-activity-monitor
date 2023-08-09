@@ -1,5 +1,3 @@
-from dataclasses import asdict
-
 from src.models import EventModel
 
 
@@ -8,15 +6,13 @@ def parse_events(events: list[dict]):
     for event in events:
         if event["type"] in ["PullRequestEvent", "WatchEvent", "IssuesEvent"]:
             parsed_events.append(
-                asdict(
-                    EventModel(
-                        id=event["id"],
-                        event_type=event["type"],
-                        created_at=event["created_at"],
-                        actor_id=event["actor"]["id"],
-                        repo_id=event["repo"]["id"],
-                        action=event["payload"]["action"],
-                    )
+                EventModel(
+                    id=event["id"],
+                    event_type=event["type"],
+                    created_at=event["created_at"],
+                    actor_id=event["actor"]["id"],
+                    repo_id=event["repo"]["id"],
+                    action=event["payload"]["action"],
                 )
             )
 
