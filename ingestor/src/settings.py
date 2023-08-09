@@ -23,9 +23,6 @@ class PostgresSettings(BaseSettings):
             host=self.host,
             port=self.port,
             database=self.database,
-            # query={
-            #     "sslmode": "require"
-            # },
         )
 
         return super().model_post_init(__context)

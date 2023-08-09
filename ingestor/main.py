@@ -12,7 +12,7 @@ from src.postgres_functions import DBEngine, upsert_events
 from src.settings import PostgresSettings, RedisSettings
 from redis.client import Redis
 
-logging.basicConfig(stream=sys.stdout, level=logging.INFO, format="%(asctime)s [%(levelname)8s] %(message)s")
+logging.basicConfig(stream=sys.stdout, level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
 
 def main(db_client: Annotated[str, typer.Argument] = "postgres"):

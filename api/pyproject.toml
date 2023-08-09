@@ -19,7 +19,7 @@ dependencies = [
     "sqlalchemy==2.0.19",
     "psycopg2-binary==2.9.6",
     "asyncpg==0.28.0",
-    "pydantic-settings==2.02",
+    "pydantic-settings==2.0.2",
 ]
 
 dynamic = ["version"]

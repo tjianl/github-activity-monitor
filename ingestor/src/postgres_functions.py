@@ -12,10 +12,10 @@ class DBEngine:
         engine = create_engine(connection_url)
         # Create a session object with binding to sqlalchemy
         session = sessionmaker(bind=engine)()
-        logging.info("Connection to Postgres succeeded!")
 
         # Create tables if not exists based on the defined models
         Base.metadata.create_all(bind=engine)
+        logging.info("Connection to Postgres succeeded!")
 
         # set the session
         self.session = session
