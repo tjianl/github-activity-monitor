@@ -1,0 +1,47 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 3s
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+  ingestor:
+    build:
+      context: ingestor/.
+    image: github-activity-monitor-ingestor:latest
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PASSWORD: mysecretpassword
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - backend
+  api:
+    build:
+      context: api/.
+    image: github-activity-monitor-api:latest
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PASSWORD: mysecretpassword
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
