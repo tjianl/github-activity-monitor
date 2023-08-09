@@ -1,0 +1,20 @@
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  code-scan-ingestor:
+    uses: ../workflow-templates/python-code-scan.yml
+    with:
+      working-directory: ./ingestor
+
+  code-scan-api:
+    uses: ../workflow-templates/python-code-scan.yml
+    with:
+      working-directory: ./api
+

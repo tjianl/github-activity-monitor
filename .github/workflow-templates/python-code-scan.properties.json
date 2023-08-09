@@ -1,0 +1,7 @@
+{
+    "name": "Python code scan workflow",
+    "description": "Runs linting with flake8 and unit tests with pytest",
+    "categories": [
+        "Python"
+    ]
+}
