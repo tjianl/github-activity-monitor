@@ -9,12 +9,12 @@ permissions:
 
 jobs:
   code-scan-ingestor:
-    uses: ./.github/workflows/python-code-scan.yml@main
+    uses: ./.github/workflows/python-code-scan.yml
     with:
       working-directory: ./ingestor
 
   code-scan-api:
-    uses: ./.github/workflows/python-code-scan.yml@main
+    uses: ./.github/workflows/python-code-scan.yml
     with:
       working-directory: ./api
 
