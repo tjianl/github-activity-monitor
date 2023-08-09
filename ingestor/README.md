@@ -17,7 +17,9 @@ None
 
 ### Optional
 
-`GITHUB_TOKEN` - GitHub API token, which allows the ingestor to increase the API call limit 60 to 5000 requests per hour. Documentation for generating the token can be found [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
+- `GITHUB_TOKEN` - GitHub API token, which allows the ingestor to increase the API call limit 60 to 5000 requests per hour. Documentation for generating the token can be found [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
+- `MAX_POLL_INTERVAL` - Maximum interval in seconds in which the GitHub Events API is polled
+
 
 When using the ingestor separately, you need additional environment variables to connect to a (PostgreSQL) database:
 
@@ -27,7 +29,6 @@ When using the ingestor separately, you need additional environment variables to
 - `POSTGRES_PASSWORD` - Password of the PostgreSQL database. Default: `""`
 - `POSTGRES_DB` - Name of the PostgreSQL database. Default: `"postgres"`
 
-- `MAX_POLL_INTERVAL` - Maximum interval in seconds in which the GitHub Events API is polled
 
 ## Run Locally
 ### Using Docker
