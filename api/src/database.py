@@ -53,6 +53,7 @@ async def get_average_time_between_prs(session: AsyncSession, repo_id: int) -> t
 
 
 async def get_num_of_events_per_type(session: AsyncSession, offset: int) -> dict[int]:
+    # The complex subqueries are to ensure that we get a count of 0 for event types that have not occurred in the last offset minutes
     event_types_subquery = select(Event.event_type).distinct().subquery()
 
     event_count_subquery = (

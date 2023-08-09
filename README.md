@@ -1,8 +1,10 @@
 # GitHub Activity Monitor
 
-GitHub Activity Monitor allows you to monitor the activity on your GitHub repositories based on the Github Events API (https://api.github.com/events) and gain insights into the contributions, issues, and pull requests. The documentation of the Github Events API can be found [here](https://docs.github.com/en/rest/activity/events). The application is built using Python and [Litestar](https://litestar.dev/).
+GitHub Activity Monitor allows you to monitor the activity on your GitHub repositories based on the Github Events API (https://api.github.com/events) and gain insights into the contributions, issues, and pull requests. The documentation of the Github Events API can be found [here](https://docs.github.com/en/rest/activity/events). The application is built using Python and [Litestar](https://litestar.dev/) and can be split into three parts:
+- Ingestor `./ingestor`: The ingestor is a Python application that polls the GitHub Events API and stores the data in a (PostgreSQL) database.
+- Database: A (PostgreSQL) database that stores the data from the GitHub Events API.
+- API `./api`: The API is a Python application using Litestar that provides endpoints to query the data from the database.
 
-The GitHub Events API is polled by the ingestor and the data is stored in a PostgreSQL database. The API can be used to query the metrics from the database and return it in a JSON format.
 
 ## System Context diagram
 
@@ -25,8 +27,10 @@ None
 ### Optional
 
 `GITHUB_TOKEN` - GitHub API token, which allows the ingestor to increase the API call limit 60 to 5000 requests per hour. Documentation for generating the token can be found [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
+`MAX_POLL_INTERVAL` - Maximum interval in seconds in which the GitHub Events API is polled. Default: `10`
 
-In case you want to run the ingestor and API separately, you need additional environment variables to connect to a PostgreSQL database. Please view the READMEs in the respective folders.
+
+In case you want to run the ingestor and API separately, you need additional environment variables to connect to a (PostgreSQL) database. Please view the READMEs in the respective folders.
 
 
 ## Run Locally
@@ -43,3 +47,12 @@ Check out the OpenAPI-based documentation at:
 - http://localhost:8000/schema/elements (for Stoplight Elements)
 
 To run the `ingestor` and `api` separately, please view the READMEs in the respective folders.
+
+## CI/CD
+
+The CI/CD pipeline is implemented using GitHub Actions. The workflows can be found in `.github/workflows`. The pipeline is triggered on every push to the `main` branch and runs the following steps for the `ingestor` and `api` repository respectively:
+- Linting of Python code using [flake8](https://flake8.pycqa.org/en/latest/)
+- Run unit tests using [pytest](https://docs.pytest.org/en/6.2.x/)
+
+## Deployment
+TO BE DONE
