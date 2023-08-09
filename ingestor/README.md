@@ -21,13 +21,13 @@ None
 
 When using the ingestor separately, you need additional environment variables to connect to a (PostgreSQL) database:
 
-`POSTGRES_HOST` - Hostname of the PostgreSQL database. Default: `"localhost"`
-`POSTGRES_PORT` - Port of the PostgreSQL database. Default: `5432`
-`POSTGRES_USER` - Username of the PostgreSQL database. Default: `"postgres"`
-`POSTGRES_PASSWORD` - Password of the PostgreSQL database. Default: `""`
-`POSTGRES_DB` - Name of the PostgreSQL database. Default: `"postgres"`
+- `POSTGRES_HOST` - Hostname of the PostgreSQL database. Default: `"localhost"`
+- `POSTGRES_PORT` - Port of the PostgreSQL database. Default: `5432`
+- `POSTGRES_USER` - Username of the PostgreSQL database. Default: `"postgres"`
+- `POSTGRES_PASSWORD` - Password of the PostgreSQL database. Default: `""`
+- `POSTGRES_DB` - Name of the PostgreSQL database. Default: `"postgres"`
 
-`MAX_POLL_INTERVAL` - Maximum interval in seconds in which the GitHub Events API is polled
+- `MAX_POLL_INTERVAL` - Maximum interval in seconds in which the GitHub Events API is polled
 
 ## Run Locally
 ### Using Docker

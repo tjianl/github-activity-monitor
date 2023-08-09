@@ -21,11 +21,11 @@ None
 ### Optional
 
 When using the API separately, you need additional environment variables to connect to a (PostgreSQL) database:
-`POSTGRES_HOST` - Hostname of the PostgreSQL database. Default: `"localhost"`
-`POSTGRES_PORT` - Port of the PostgreSQL database. Default: `5432`
-`POSTGRES_USER` - Username of the PostgreSQL database. Default: `"postgres"`
-`POSTGRES_PASSWORD` - Password of the PostgreSQL database. Default: `""`
-`POSTGRES_DB` - Name of the PostgreSQL database. Default: `"postgres"`
+- `POSTGRES_HOST` - Hostname of the PostgreSQL database. Default: `"localhost"`
+- `POSTGRES_PORT` - Port of the PostgreSQL database. Default: `5432`
+- `POSTGRES_USER` - Username of the PostgreSQL database. Default: `"postgres"`
+- `POSTGRES_PASSWORD` - Password of the PostgreSQL database. Default: `""`
+- `POSTGRES_DB` - Name of the PostgreSQL database. Default: `"postgres"`
 
 ## Run Locally
 ### Using Docker

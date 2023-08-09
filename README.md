@@ -26,8 +26,9 @@ None
 
 ### Optional
 
-`GITHUB_TOKEN` - GitHub API token, which allows the ingestor to increase the API call limit 60 to 5000 requests per hour. Documentation for generating the token can be found [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
-`MAX_POLL_INTERVAL` - Maximum interval in seconds in which the GitHub Events API is polled. Default: `10`
+- `GITHUB_TOKEN` - GitHub API token, which allows the ingestor to increase the API call limit 60 to 5000 requests per hour. Documentation for generating the token can be found [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
+
+- `MAX_POLL_INTERVAL` - Maximum interval in seconds in which the GitHub Events API is polled. Default: `10`
 
 
 In case you want to run the ingestor and API separately, you need additional environment variables to connect to a (PostgreSQL) database. Please view the READMEs in the respective folders.
