@@ -21,7 +21,7 @@ def main(db_client: Annotated[str, typer.Argument] = "postgres"):
 
     elif db_client == "redis":
         redis_settings = RedisSettings()
-        db_connection: Redis = connect_redis(host=redis_settings.host, )
+        db_connection: Redis = connect_redis(host=redis_settings.host, port=redis_settings.port)
 
     events_gen = poll_github_events()
 

@@ -2,14 +2,16 @@ import logging
 import time
 
 import requests
-from src import service
 from src.models import FirstPage
 from src.settings import Settings
 
 settings = Settings()
 
 
-def poll_github_events():
+def poll_github_events() -> list[dict]:
+    """Polls Github Events API based a calculated interval based on the poll limit, the documentation of the API can be found here:
+    https://docs.github.com/en/rest/activity/events
+    """
     url: str = "https://api.github.com/events"
     headers: dict[str] = {"Accept": "application/vnd.github+json"}
     events: list = []
@@ -23,7 +25,7 @@ def poll_github_events():
     while True:
         first_page: FirstPage = get_first_page(url=url, headers=headers)
         if first_page.status_code == 200:
-            events.extend(service.parse_events_redis(first_page.events))
+            events.extend(first_page.events)
             events: list[dict] = get_paginated_data(response=first_page, headers=headers, events=events)
             yield events
 
@@ -36,8 +38,8 @@ def poll_github_events():
                 )  # Poll dependent on the poll interval limit
             )
         else:
-            logging.info("Trying again in 60 seconds")
-            time.sleep(60)  # Try again later in 60 seconds
+            logging.info(f"Trying again in {settings.max_poll_interval} seconds")
+            time.sleep(settings.max_poll_interval)  # Try again later in 60 seconds
 
 
 def get_first_page(url: str, headers: dict) -> FirstPage:
