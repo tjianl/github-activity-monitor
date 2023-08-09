@@ -9,12 +9,12 @@ permissions:
 
 jobs:
   code-scan-ingestor:
-    uses: ../workflow-templates/python-code-scan.yml
+    uses: ../workflow-templates/python-code-scan.yml@main
     with:
       working-directory: ./ingestor
 
   code-scan-api:
-    uses: ../workflow-templates/python-code-scan.yml
+    uses: ../workflow-templates/python-code-scan.yml@main
     with:
       working-directory: ./api
 
