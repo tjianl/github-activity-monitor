@@ -24,7 +24,7 @@ def test_get_first_page():
     response = MockResponse(
         status_code=200,
         json_data=[{"type": "IssuesEvent"}],
-        headers={"X-Poll-Interval": 30, "ETag": "dafadsfsa"},
+        headers={"X-RateLimit-Limit": 5000, "ETag": "dafadsfsa"},
         links={
             "next": {"url": "https://api.github.com/events?page=2"},
             "last": {"url": "https://api.github.com/events?page=10"},
@@ -36,7 +36,7 @@ def test_get_first_page():
 
     assert first_page.status_code == 200
     assert first_page.events == [{"type": "IssuesEvent"}]
-    assert first_page.poll_interval == 30
+    assert first_page.poll_interval == 1
     assert first_page.next == "https://api.github.com/events?page=2"
 
 
