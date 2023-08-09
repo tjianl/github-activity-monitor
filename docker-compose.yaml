@@ -23,6 +23,7 @@ services:
       POSTGRES_HOST: db
       POSTGRES_PASSWORD: mysecretpassword
       GITHUB_TOKEN: ${GITHUB_TOKEN}
+      MAX_POLL_INTERVAL: ${MAX_POLL_INTERVAL}
     depends_on:
       db:
         condition: service_healthy
