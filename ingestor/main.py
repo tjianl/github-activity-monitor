@@ -17,7 +17,6 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO, format="%(asctime)s [
 
 def main(db_client: Annotated[str, typer.Argument] = "postgres"):
     if db_client == "postgres":
-        logging.info(PostgresSettings().postgres_dsn)
         db_connection: DBEngine = DBEngine(connection_url=PostgresSettings().postgres_dsn)
 
     elif db_client == "redis":
