@@ -5,10 +5,10 @@ on:
     inputs:
       working-directory:
         type: string
-        defaults: "."
+        default: "."
       python-version:
         type: string
-        defaults: "3.10"
+        default: "3.10"
 
 permissions:
   contents: read
